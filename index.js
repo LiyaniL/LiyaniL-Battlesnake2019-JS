@@ -9,6 +9,13 @@ const {
   poweredByHandler
 } = require('./handlers.js')
 
+// Add a random function to choose witch direction
+function randomChoice(choice) {
+  var index = Math.floor(Math.random() * choice.length);
+  return choice[index];
+}
+
+
 // For deployment to Heroku, the port needs to be set using ENV, so
 // we check for the port number in process.env
 app.set('port', (process.env.PORT || 9001))
@@ -36,10 +43,10 @@ app.post('/start', (request, response) => {
 // Handle POST request to '/move'
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
-
+  var direction = ['up','down','left','right'];
   // Response data
   const data = {
-    move: 'up', // one of: ['up','down','left','right']
+    move: randomChoice(direction), // one of: ['up','down','left','right']
   }
 
   return response.json(data)
